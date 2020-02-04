@@ -1,0 +1,87 @@
+/**
+ * Print stylesheet for lpvms.com
+* @version         1.0
+* @lastmodified    24.10.2019
+*/
+
+@page 
+    {size: landscape  ;}
+
+    
+
+@media print{
+
+    table, th    
+        {
+            font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+        border: 1px solid black;
+        font-size: 13px;
+       
+        }
+        table, td {
+            font-size: small;
+        }
+        table {
+            width: 100%;
+            clear: both;
+            border-collapse: collapse;
+            table-layout: auto;
+            font-size: 0.75rem;
+        }
+        thead, tfoot {
+                     display: table-row-group;
+                }
+
+        tr {
+                    page-break-inside: avoid;
+                }
+
+        body {
+                    font: 13pt Georgia, "Times New Roman", Times, serif;
+                    line-height: 1.3;
+                    background: #fff !important;
+                    color: #000;
+                    
+                    }
+                    
+        h1 {
+                    font-size: 24pt;
+                    }
+                    
+        h2, h3, h4, h5 {
+                    font-size: 14pt;
+                    margin-top: 5px;
+                    font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+                    }
+        p{
+            font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+        }
+        .printclass p {
+            margin-top: 0;
+            font-size: 12pt;
+        }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+}

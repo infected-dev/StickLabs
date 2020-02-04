@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+
+{% block titile %}
+Design Master
+{% endblock %}
+
+
+{% block body %}
+
+    
+    <div class="row">
+        <div class="col-3">
+            <h4 class="h4 text-center mb-3">Design Master</h4>
+            <div class=" btn-group-vertical w-100" role="group" aria-label="Actions">
+                <button type="button" class="btn btn-primary btn-block mb-2 " data-toggle="modal" data-target="#modelId">+ New</button>
+                <button type="button" class="btn btn-primary btn-block mb-2 ">Edit</button>
+                <button type="button" class="btn btn-primary btn-block mb-2 "> - Delete</button>
+            </div>
+        </div>
+        <div class="col">
+            <table class="table mt-4">
+                <thead>
+                    <tr>
+                        <th>Design Code</th>
+                        <th>Design Name</th>
+                        <th>Date Created</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td scope="row"></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div>
+            <!-- Modal -->
+            <div class="modal fade" id="modelId" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                            <div class="modal-header">
+                                    <h5 class="modal-title">Add New Design</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                </div>
+                        <div class="modal-body">
+                            <div class="container-fluid">
+                                Add rows here
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary">Save</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

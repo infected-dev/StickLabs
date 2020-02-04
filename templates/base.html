@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>{% block title %}  {% endblock %}</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="{{url_for('static',filename='css/bootstrap.min.css')}}">
+  </head>
+  <body>
+    <div class="container">
+      <div class="row">
+          <div class="col">
+              <nav class="navbar navbar-expand navbar-light bg-light">
+                  <div class="nav navbar-nav">
+                      <a class=" font-weight-bold nav-item nav-link active" href="#">Home</a> 
+                      <a class=" font-weight-bold nav-item nav-link" href="#">Admin</a>
+                      <a class=" font-weight-bold nav-item nav-link" href="{{url_for('design.design_main')}}">Designs</a>
+                      <a class=" font-weight-bold nav-item nav-link" href="#">Print</a>
+                      <a class=" font-weight-bold nav-item nav-link" href="#">Sign Out</a>
+                  </div>
+              </nav>
+          </div>
+      </div>
+    
+    {% block body %}
+
+    {% endblock %}
+  </div>
+    <!-- Optional JavaScript -->
+    {% block scripts %}
+
+    {% endblock %}
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="{{url_for('static',filename='js/jquery-3.2.1.slim.min.js')}}" ></script>
+    <script src="{{url_for('static',filename='js/popper.min.js')}}"></script>
+    <script src="{{url_for('static',filename='js/bootstrap.min.js')}}" ></script>
+  </body>
+</html>
