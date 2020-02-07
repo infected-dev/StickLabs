@@ -1,6 +1,19 @@
+from . import db
+from ver1 import app
 from datetime import datetime
 from flask_sqlalchemy import SQLAlchemy
-from . import db
+
+class Plant(db.Model):
+    __bind_key__ = 'admin'
+    __tablename__='plant'
+
+    plant_id = db.Column(db.Integer, primary_key=True)
+    plant_name = db.Column(db.String(30))
+
+    def __init__(self, plant_name):
+        self.plant_name=plant_name
+        
+
 
 class User(db.Model):
     __bind_key__ = 'admin'
@@ -9,8 +22,8 @@ class User(db.Model):
     user_id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(20))
     password = db.Column(db.String(20))
-    role_id = db.Column(db.Integer, db.ForeignKey='role.role_id')
-    plant_id = db.Column(db.Integer, db.ForeignKey = 'plant.plant_id')
+    role_id = db.Column(db.Integer, db.ForeignKey('role.role_id'))
+    plant_id = db.Column(db.Integer, db.ForeignKey('plant.plant_id'))
 
     def __init__(self, username, password, role_id, plant_id):
         self.username = username
@@ -37,15 +50,19 @@ class DesignMast(db.Model):
 
     design_code = db.Column(db.Integer, primary_key=True)
     design_name = db.Column(db.String(50))
-    changed_user_id = db.Column(db.Integer, db.ForeignKey='user.user_id')
+    changed_user_id = db.Column(db.Integer, db.ForeignKey('user.user_id'))
     date_created = db.Column(db.Date)
     date_changed = db.Column(db.Date)
 
-    def __init__(self, design_code, design_name, changed_user_id, date_created, date_changed):
+    def __init__(self, design_code, design_name):
         self.design_code = design_code
         self.design_name = design_name
-        self.changed_user_id = changed_user_id
-        self.date_created = datetime.now().date()
-        self.date_changed = date_changed
-
     
+    def updateData(self):
+        self.date_created = datetime.now().date()
+        self.changed_user_id = 3
+        db.session.add(self)
+        db.session.commit()
+        
+
+
