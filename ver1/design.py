@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, url_for
+from flask import Blueprint, render_template, request, url_for, jsonify, redirect
 from . import db
 from .models import DesignMast
 
@@ -18,5 +18,4 @@ def design_new():
         design.updateData()
         db.session.add(design)
         db.session.commit()
-        return {'d_no': d_no, 'd_name':name_d}
-
+        return {'d_no':'ok'}
