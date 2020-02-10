@@ -11,18 +11,17 @@
     <link rel="stylesheet" href="{{url_for('static', filename='css/jquery.dataTables.min.css')}}">
     <link rel="stylesheet" href="{{url_for('static', filename='css/thermalpaper.css')}}">
   </head>
-  <body>
-    <div class="container">
-    
-    {% block body %}
-      <p>{{d.design_code}}</p>
-      <p>{{d.design_name}}</p>
-    {% endblock %}
+  <body class="container">
+    <div class="stickerbod text-center">
+      <div class="labelbody">
+        <p class="h2">D.NO. {{d.design_code}}</p>
+        <p class="h2">{{d.design_name}}</p>
+      </div>
   </div>
     <!-- Optional JavaScript -->
-    {% block scripts %}
+    
 
-    {% endblock %}
+    
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="{{url_for('static',filename='js/jquery-3.4.js')}}" ></script>
     <script src="{{url_for('static',filename='js/popper.min.js')}}"></script>
