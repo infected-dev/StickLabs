@@ -1,0 +1,15 @@
+@page{
+    size: 100mm 100mm;
+}
+
+body{
+    height: 100mm;
+    width: 100mm ;
+}
+
+@media print {
+    @page{
+        size: 80mm 150mm;
+        margin: 50mm;
+    }
+}

@@ -1,18 +1,16 @@
 from . import db
-from ver1 import app
 from datetime import datetime
-from flask_sqlalchemy import SQLAlchemy
+
 
 class Plant(db.Model):
     __bind_key__ = 'admin'
-    __tablename__='plant'
+    __tablename__ = 'plant'
 
     plant_id = db.Column(db.Integer, primary_key=True)
     plant_name = db.Column(db.String(30))
 
     def __init__(self, plant_name):
-        self.plant_name=plant_name
-        
+        self.plant_name = plant_name
 
 
 class User(db.Model):
@@ -30,9 +28,10 @@ class User(db.Model):
         self.password = password
         self.role_id = role_id
         self.plant_id = plant_id
-    
+
     def get_role(self):
         return self.role_id
+
 
 class Role(db.Model):
     __bind_key__ = 'admin'
@@ -45,6 +44,7 @@ class Role(db.Model):
     def __init__(self, role_name):
         self.role_name = role_name
 
+
 class DesignMast(db.Model):
     __tablename__ = 'designmast'
 
@@ -54,15 +54,12 @@ class DesignMast(db.Model):
     date_created = db.Column(db.Date)
     date_changed = db.Column(db.Date)
 
-    def __init__(self, design_code, design_name):
-        self.design_code = design_code
-        self.design_name = design_name
-    
-    def updateData(self):
+    def update_data(self):
         self.date_created = datetime.now().date()
         self.changed_user_id = 3
         db.session.add(self)
         db.session.commit()
-        
 
-
+    def get_all(self):
+        x = self.query.all()
+        return x

@@ -22,6 +22,7 @@ app.register_blueprint(admin_blueprint)
 
 from .design import design as design_blueprint
 app.register_blueprint(design_blueprint)
+ 
 
 if __name__ == '__main__':
    app.run(debug=True)
