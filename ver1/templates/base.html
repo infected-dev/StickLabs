@@ -9,7 +9,13 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="{{url_for('static',filename='css/bootstrap.min.css')}}">
     <link rel="stylesheet" href="{{url_for('static', filename='css/jquery.dataTables.min.css')}}">
-    <link rel="stylesheet" href="{{url_for('static', filename='css/thermalpaper.css')}}">
+
+    <link rel="image" href="{{url_for('static', filename='images/sort_asc.png')}}">
+    <link rel="image" href="{{url_for('static', filename='images/sort_desc.png')}}">
+    <link rel="image" href="{{url_for('static', filename='images/sort_both.png')}}">
+    <link rel="image" href="{{url_for('static', filename='images/sort_asc_disabled.png')}}">
+    <link rel="image" href="{{url_for('static', filename='images/sort_desc_disabled.png')}}">
+  
   </head>
   <body>
     <div class="container">
@@ -32,16 +38,18 @@
     {% endblock %}
   </div>
     <!-- Optional JavaScript -->
-    {% block scripts %}
-
-    {% endblock %}
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="{{url_for('static',filename='js/jquery-3.4.js')}}" ></script>
     <script src="{{url_for('static',filename='js/popper.min.js')}}"></script>
     <script src="{{url_for('static',filename='js/bootstrap.min.js')}}" ></script>
+    <script src="{{url_for('static', filename='js/datatables.min.js')}}"></script>
     <script src="{{url_for('static', filename='js/Ajax/update.js')}}"></script>
-    <script src="{{url_for('static', filename='js/moment.js')}}"></script>
     <script src="{{url_for('static', filename='js/jquery.dataTables.min.js')}}"></script>
     <script src="{{url_for('static', filename='js/tables_powered.js')}}"></script>
+    <!--End of External Scripts-->
+
+    {% block scripts %}
+
+    {% endblock %}
   </body>
 </html>

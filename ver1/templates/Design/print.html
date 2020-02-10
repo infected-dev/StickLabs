@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block title %} Print Master {% endblock %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-2">
+            <h4 class="h4 text-center mb-3">Print Master</h4>
+    </div>
+    <div class="col-10">
+        <table id="designTable" class="mt-4 w-100 display compact">
+            <thead class="thead-light">
+                <tr>
+                    <th>Design Code</th>
+                    <th>Design Name</th>
+                    <th>Date Created</th>
+                    <th>Date Edited</th>
+                    <th>Print</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for d in d_many %}
+                <tr data-id="{{d.design_code}}">
+                    <td scope="row" id="code{{d.design_code}}">{{d.design_code}}</td>
+                    <td id="name{{d.design_code}}">{{d.design_name}}</td>
+                    <td id="date{{d.design_code}}">{{d.date_created.strftime('%d-%m-%y')}}</td>
+
+                    {% if d.date_changed == None %}
+                    <td></td>
+                    {% else %}
+                    <td>{{d.date_changed.strftime('%d-%m-%y')}}</td>
+                    {% endif %}
+                    <td><form action="{{url_for('design.design_print')}}" method="POST">
+                        <input type="hidden" name="d_id" value="{{d.design_code}}">
+                        <input class="btn btn-dark" type="submit">                        
+                    </form></td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

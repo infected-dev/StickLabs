@@ -15,42 +15,43 @@ Design Master
                 
             </div>
         </div>
-        <div class="col">
-            <table id="designTable" class="display display compact mt-4">
+        <div class="col-10">
+            <table id="designTable" class="mt-4 w-100">
                 <thead class="thead-light">
                     <tr>
                         <th>Design Code</th>
                         <th>Design Name</th>
                         <th>Date Created</th>
-                        <th>Actions</th>
+                        <th>Date Edited</th>
+                        <th>Edit</th>
+                        <th>Delete</th>
                     </tr>
                 </thead>
                 <tbody>
                 {% for d in d_many %}
-                    <tr>
-                        <td scope="row">{{d.design_code}}</td>
-                        <td>{{d.design_name}}</td>
-                        <td>{{d.date_created}}</td>
-                        <td><div class="btn-group" role="group" aria-label="">
-                            <div class="btn-group" role="group">
-                                <button id="dropdownId" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
-                                        aria-expanded="false">
-                                    
-                                Edits</button>
-                                <div class="dropdown-menu" aria-labelledby="dropdownId">
-                                    <a class="dropdown-item" href="#">change name</a>
-                                    <a class="dropdown-item" href="#"></a>
-                                    <a class="dropdown-item" href="#">delete</a>
-                                </div>
-                            </div>
-                        </div></td>
+                    <tr data-id="{{d.design_code}}">
+                        <td scope="row" id="code{{d.design_code}}">{{d.design_code}}</td>
+                        <td id="name{{d.design_code}}">{{d.design_name}}</td>
+                        <td id="date{{d.design_code}}">{{d.date_created.strftime('%d-%m-%y')}}</td>
+
+                        {% if d.date_changed == None %}
+                        <td></td>
+                        {% else %}
+                        <td>{{d.date_changed.strftime('%d-%m-%y')}}</td>
+                        {% endif %}
+
+                        <td> <button data-id="{{d.design_code}}" id="editBtn" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#editDesignModal">Change Name</button></td>
+                        <td> <form action="{{url_for('design.design_delete')}}" method="POST">
+                            <input type="hidden" name="d_id" value="{{d.design_code}}">
+                            <input class="btn btn-warning btn-sm" type="submit" value="Delete">
+                        </form></td>
                     </tr>
                 {% endfor %}
                 </tbody>
             </table>
         </div>
         <div>
-            <!-- Modal -->
+            <!-- New Design Modal -->
             <div class="modal fade" id="addDesignModal" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
@@ -79,6 +80,50 @@ Design Master
                     </div>
                 </div>
             </div>
+
+            <!-- Button trigger modal -->
+            
+            <!-- Modal -->
+            <div class="modal fade" id="editDesignModal" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Edit Design</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                        </div>
+                        <div class="modal-body">
+                            <form class="form" action="{{url_for('design.design_change_data')}}" method="POST">
+                                <input id="d_id" type="hidden" name="d_id">
+                                <div class="form-group">
+                                  <label for="d_name">Change Name</label>
+                                  <input type="text"
+                                    class="form-control" name="d_name" id="d_name" aria-describedby="helpId" placeholder="Design Name">
+                                </div>
+                                <input class="btn btn-block btn-primary" type="submit">
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary">Save</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
+{% endblock %}
+
+{% block scripts %}
+<script text="text/javascript">
+    $('#editDesignModal').on('show.bs.modal', function(e){
+        var id = $(e.relatedTarget).data('id')
+        var name = $('#name'+id).html()
+
+        $(".modal-title").html('Edit Design '+ id)
+        $('#d_id').val(id)
+        $('#d_name').val(name)
+    })
+</script>
 {% endblock %}

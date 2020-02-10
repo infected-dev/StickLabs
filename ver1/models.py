@@ -63,3 +63,9 @@ class DesignMast(db.Model):
     def get_all(self):
         x = self.query.all()
         return x
+
+    def update_date(self):
+        self.date_changed = datetime.now().date()
+        db.session.commit()
+
+        
