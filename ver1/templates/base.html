@@ -19,12 +19,19 @@
   </head>
   <body>
     <div class="container">
+      {% with messages = get_flashed_messages() %}
+      {% if messages %}
+      {% for message in messages %}
+      <div class="flash-mess alert text-center lead alert-primary">{{message}}</div>
+      {% endfor %}
+      {% endif %}
+      {% endwith %}
       <div class="row">
           <div class="col">
               <nav class="navbar navbar-expand navbar-light bg-light">
                   <div class="nav navbar-nav">
                       <a class="text-black-50 font-weight-bold text-monospace nav-item nav-link   " href="#">Home</a> 
-                      <a class="text-black-50 font-weight-bold text-monospace nav-item nav-link" href="#">Admin</a>
+                      <a class="text-black-50 font-weight-bold text-monospace nav-item nav-link" href="{{url_for('admin.main_admin')}}">Admin</a>
                       <a class="text-black-50 font-weight-bold text-monospace nav-item nav-link" href="{{url_for('design.design_main')}}">Designs</a>
                       <a class="text-black-50 font-weight-bold text-monospace nav-item nav-link" href="{{url_for('design.design_print')}}">Print</a>
                       <a class="text-black-50 font-weight-bold text-monospace nav-item nav-link" href="#">Sign Out</a>

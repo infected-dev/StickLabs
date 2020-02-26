@@ -1,7 +1,6 @@
 from . import db
 from datetime import datetime
 
-
 class Plant(db.Model):
     __bind_key__ = 'admin'
     __tablename__ = 'plant'
@@ -42,7 +41,7 @@ class Role(db.Model):
     users = db.relationship('User', backref='roles')
 
     def __init__(self, role_name):
-        self.role_name = role_name
+        self.role_name = role_name.upper()
 
 
 class DesignMast(db.Model):

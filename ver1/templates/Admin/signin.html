@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <meta name="google-site-verification" content="us0SsMQZv_MwpHeqRzegn7LVmikRfzAxewNCHxBMaCE" />
+
+  <title>Login</title>
+
+  <link rel="icon" href="{{url_for('static', filename='images/lax.ico')}}">
+  <!-- Bootstrap core CSS -->
+  <link href="{{url_for('static',filename='css/bootstrap.min.css')}}" rel="stylesheet">
+
+  <!-- Custom styles for this template -->
+  <link href="{{url_for('static', filename='css/signin.css')}}" rel="stylesheet">
+  <style>
+    body {
+      background: linear-gradient(250deg, #743566, #a00e0e);
+      background-size: 400% 400%;
+    }
+
+    #company-name {
+      color: white;
+    }
+  </style>
+</head>
+
+<body class="text-center">
+
+
+  <form action="/login" method="POST">
+    <div id="company-name" class="mb-5">
+      <img class=" mb-2 img-thumbnail" src="{{url_for('static', filename='images/logo.png')}}" alt="" width=""
+        height="">
+      <h4>Siddhi Vinayak Knots and Prints Pvt Ltd.</h4>
+      <h5 class="lead"><em>Laxmipati Sarees</em></h5>
+    </div>
+
+    <div class="card container w-50">
+
+      <div class="card-body">
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        {% for message in messages %}
+        <div class="flash-mess alert text-center lead alert-primary">{{message}}</div>
+        {% endfor %}
+        {% endif %}
+        {% endwith %}
+
+
+        <div class="form-row">
+          <label for="inputUsername">User Name:</label>
+         <input class="form-control" type="text" name="username">
+          <label for="inputPassword">Password:</label>
+          <input class="form-control" id="password" type="password" name="password">
+         
+        </div>
+        
+        <button class="mt-2 btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+      </div>
+    </div>
+
+
+    <p class="mt-5 mb-3 fixed-bottom" style="color:floralwhite ;">&copy; Siddhi Vinayak Knots and Prints Pvt Ltd. 2019-2020 </p>
+  </form>
+
+  <script src="{{url_for('static', filename='js/jquery-3.4.js')}}"></script>
+  <script src="{{url_for('static', filename='js/jquery.min.js')}}"></script>
+  <script src="{{url_for('static', filename='js/popper.min.js')}}"></script>
+  <script src="{{url_for('static', filename='js/bootstrap.min.js')}}"></script>
+  <script src="{{url_for('static', filename='js/print.min.js')}}"></script>
+
+  <script>
+
+    window.setTimeout(function () {
+      $(".flash-mess").fadeTo(500, 0).slideUp(500, function () {
+        $(this).remove();
+      });
+    }, 2000);
+
+  </script>
+</body>
+
+</html>
