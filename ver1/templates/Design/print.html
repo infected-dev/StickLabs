@@ -3,12 +3,13 @@
 {% block title %} Print Master {% endblock %}
 
 {% block body %}
-    <div class="row">
+    <div class="row mt-3">
         <div class="col-2">
             <h4 class="h4 text-center mb-3">Print Master</h4>
     </div>
     <div class="col-10">
-        <table id="designTable" class="mt-4 w-100 display compact">
+        <table id="designTable" class="mt-4 w-75 display compact">
+            
             <thead class="thead-light">
                 <tr>
                     <th>Design Code</th>
@@ -30,13 +31,85 @@
                     {% else %}
                     <td>{{d.date_changed.strftime('%d-%m-%y')}}</td>
                     {% endif %}
-                    <td><form action="{{url_for('design.design_print')}}" method="POST">
+                    <!-- <td><form action="{{url_for('design.design_print')}}" method="POST">
                         <input type="hidden" name="d_id" value="{{d.design_code}}">
                         <input class="btn btn-dark" type="submit">                        
-                    </form></td>
+                    </form></td> -->
+                    <td>
+                        <button type="button" data-id="{{d.design_code}}" class="btn btn-primary btn-sm btn-block" data-toggle="modal" data-target=".PrintDesignSizeClass">
+                            Print
+                          </button>
+                    </td>
                 </tr>
             {% endfor %}
             </tbody>
+
         </table>
+       
+        
+
+        <!-- Modal -->
+        <div class="modal fade PrintDesignSizeClass" id="PrintDesignSize" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Print Design Sizes</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                    </div>
+                    <div class="modal-body">
+                        <form class="form-inline">
+
+                            <div class="form-group w-25">
+                                <label class="mr-2" for="designcode">Code</label>
+                                <input type="text" name="design_code" id="designcode" class="form-control w-50" aria-describedby="helpId" readonly disabled>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="mr-2" for="desginname">Design Name</label>
+                                <input type="text" name="design_name" id="designname" class="form-control" placeholder="" aria-describedby="helpId" readonly disabled>
+                                
+                            </div>
+
+                            <div class="form-check btn-group-vertical mt-1">
+                                <label class="form-check-label">
+                                   <input class="form-check-input" type="checkbox" name="size_1" id="size1" value="1"> 25 x 15 
+                                </label>
+
+                                <label class="form-check-label">
+                                    <input class="form-check-input" type="checkbox" name="size_2" id="size2" value="2"> 20 x 10 
+                                </label>
+
+                                <label class="form-check-label">
+                                    <input class="form-check-input" type="checkbox" name="size_3" id="size3" value="3">15 x 5 
+                                </label>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary">Save</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    $('#PrintDesignSize').on('show.bs.modal', function (e) {
+        var id = $(e.relatedTarget).data('id');
+        
+        var design_code = $('#code'+id).html();
+        $('#designcode').val(design_code);
+
+        var design_name = $('#name'+id).html();
+        $('#designname').val(design_name);
+
+
+    });
+</script>
+
 {% endblock %}

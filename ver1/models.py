@@ -1,5 +1,8 @@
 from . import db
 from datetime import datetime
+from . import admin
+from flask_admin.contrib.sqla import ModelView
+
 
 class Plant(db.Model):
     __bind_key__ = 'admin'
@@ -67,4 +70,7 @@ class DesignMast(db.Model):
         self.date_changed = datetime.now().date()
         db.session.commit()
 
-        
+admin.add_view(ModelView(User, db.session))
+admin.add_view(ModelView(Role, db.session))
+admin.add_view(ModelView(Plant, db.session))
+admin.add_view(ModelView(DesignMast, db.session))
