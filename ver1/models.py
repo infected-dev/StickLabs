@@ -1,7 +1,6 @@
 from . import db
 from datetime import datetime
 
-
 class Plant(db.Model):
     __bind_key__ = 'admin'
     __tablename__ = 'plant'
