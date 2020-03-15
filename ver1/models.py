@@ -1,33 +1,22 @@
-from . import db
+
 from datetime import datetime
-
-class Plant(db.Model):
-    __bind_key__ = 'admin'
-    __tablename__ = 'plant'
-
-    plant_id = db.Column(db.Integer, primary_key=True)
-    plant_name = db.Column(db.String(30))
-
-    def __init__(self, plant_name):
-        self.plant_name = plant_name
+from . import db
 
 
-class User(db.Model):
+class User( db.Model):
     __bind_key__ = 'admin'
     __tablename__ = 'user'
-
     user_id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(20))
     password = db.Column(db.String(20))
     role_id = db.Column(db.Integer, db.ForeignKey('role.role_id'))
-    plant_id = db.Column(db.Integer, db.ForeignKey('plant.plant_id'))
-
+    designs = db.relationship('DesignMast', backref='username')
     def __init__(self, username, password, role_id, plant_id):
         self.username = username
         self.password = password
         self.role_id = role_id
-        self.plant_id = plant_id
 
+    @property
     def get_role(self):
         return self.role_id
 

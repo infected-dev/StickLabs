@@ -7,7 +7,342 @@ Admin
 
 <!-- Main Body-->
 {% block body %}
+<div class="accordian" id="adminpanel">
+    <div class=" justify-content-center mt-4 mr-auto ml-auto mb-2 row">
+        <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+            <div class="btn-group mr-2 btn-group-lg" role="group" aria-label="First group">
+                <button type="button" class="btn btn-warning" data-toggle="collapse" data-target="#usercard"> Users
+                </button>
+                <button type="button" class="btn btn-warning" data-toggle="collapse"
+                    data-target="#rolecard">Role </button>
+                <button type="button" class="btn btn-warning" data-toggle="collapse"
+                    data-target="#designcard ">Designs</button>
+                
+            </div>
+        </div>
+    </div>
 
+    <div class=" mt-4 container">
+
+        <!-- User Forum-->
+        <div id="usercard" class=" collapse col" data-parent="#adminpanel">
+            <div class="card">
+                <div class="card-body">
+                    <form class="mb-1" method="POST" action="/admin/adduser">
+                        <h3>Add New User</h3>
+                        <label for="employeename">User Name:</label>
+                        <input type="text" class="form-control" name="username" required>
+                        <label for="password">Password:</label>
+                        <input type="text" class="form-control" name="password" required>
+                        <label for="roleid">Role:</label>
+                        <select name="role_id" id="roleid" class="form-control">
+                            {% for r in roles %}
+                            <option id="{{r.role_id}}">{{r.role_name}}</option>
+                            {% endfor %}
+                        </select>
+                        
+                        <input type="submit" class="btn mt-1 btn-block btn-primary">
+
+                    </form>
+                    <table class="table table-sm">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Username</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for u in users %}
+                            <tr>
+                                <td>{{u.user_id}}</td>
+                                <td>{{u.username}}</td>
+                                <td>
+                                   <div class="dropdown open">
+                                       <button class="btn btn-secondary dropdown-toggle" type="button" id="triggerId" data-toggle="dropdown" aria-haspopup="true"
+                                               aria-expanded="false">
+                                                   Dropdown
+                                               </button>
+                                       <div class="dropdown-menu" aria-labelledby="triggerId">
+                                           <button class="dropdown-item" href="#">Update</button>
+                                           
+                                               <form action="/admin/delete" method="POST">
+                                                    <input type="hidden" name="userid" value="{{u.user_id}}">
+                                                    <input type="hidden" name="opp_id" value="1">
+                                                    <button class="dropdown-item">Delete</button>
+                                               </form>
+                                           
+                                       </div>
+                                   </div>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+
+        <!--Company Role-->
+        <div id="rolecard" class="collapse col" data-parent="#adminpanel">
+            <div class="card">
+                <div class="card-body">
+                    <form class="mb-2" method="POST" action="/admin/addrole">
+                        <h3>Add Roles</h3>
+                        <label for="deptname">Role Name:</label>
+                        <input type="text" class="form-control" name="rolename" style="text-transform:uppercase;"
+                            placeholder=" Role Name" required>
+                        <input type="submit" class="btn mt-1 btn-block btn-primary">
+                    </form>
+
+                    <table id="company-department-table" class="table table-sm">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Department Name</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for r in roles %}
+                            <tr>
+                                <td>{{r.role_id}}</td>
+                                <td>{{r.role_name}}</td>
+                                <td>
+                                    <div class="dropdown open">
+                                        <button class="btn btn-secondary dropdown-toggle" type="button" id="triggerId" data-toggle="dropdown" aria-haspopup="true"
+                                                aria-expanded="false">
+                                                    Dropdown
+                                                </button>
+                                        <div class="dropdown-menu" aria-labelledby="triggerId">
+                                            <button class="dropdown-item" href="#">Update</button>
+                                            
+                                                <form action="/admin/delete" method="POST">
+                                                     <input type="hidden" name="roleid" value="{{r.role_id}}">
+                                                     <input type="hidden" name="opp_id" value="2">
+                                                     <button class="dropdown-item">Delete</button>
+                                                </form>
+                                            
+                                        </div>
+                                    </div>
+                                 </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+
+                    </table>
+
+                </div>
+            </div>
+        </div>
+
+
+       
+
+
+        <!--  Designs Forum -->
+        <div id="designcard" class="collapse col" data-parent="#adminpanel">
+            <div class="card">
+                <div class="card-body">
+                    <form class="mb-2" method="POST" action="/admin/post/vehicletype">
+                        <h3>Add Designs</h3>
+                        <label for="vehicletype">Design No:</label>
+                        <input autofocus style="text-transform:uppercase;" placeholder="Design No" type="text"
+                            class="form-control" name="designno" required>
+                        <label for="vehicletype">Design Name:</label>
+                        <input autofocus style="text-transform:uppercase;" placeholder="Design Name" type="text"
+                            class="form-control" name="designame" required>
+                        <input type="submit" class="btn btn-block mt-1 btn-primary">
+                    </form>
+                    <table class="table table-sm">
+                        <thead>
+                            <tr>
+                                <th>Type ID</th>
+                                <th> Type Name</th>
+                                <th>Date Created</th>
+                                <th>User name</th>
+                                <th>Update</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for d in designs %}
+                            <tr>
+                                <td>{{d.design_code}}</td>
+                                <td>{{d.design_name}}</td>
+                                <td>{{d.date_created}}</td>
+                                <td>{{d.username.user_name}}</td>
+                                <td>
+                                    <div class="dropdown open">
+                                        <button class="btn btn-secondary dropdown-toggle" type="button" id="triggerId" data-toggle="dropdown" aria-haspopup="true"
+                                                aria-expanded="false">
+                                                    Dropdown
+                                                </button>
+                                        <div class="dropdown-menu" aria-labelledby="triggerId">
+                                            <button class="dropdown-item" href="#">Update</button>
+                                            
+                                                <form action="/admin/delete" method="POST">
+                                                     <input type="hidden" name="roleid" value="{{d.design_code}}">
+                                                     <input type="hidden" name="opp_id" value="2">
+                                                     <button class="dropdown-item">Delete</button>
+                                                </form>
+                                            
+                                        </div>
+                                    </div>
+                                 </td>
+                            
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Compnay Vehicle Form -->
+        <div id="companyvehiclecard" class="collapse col" data-parent="#adminpanel">
+            <div class="card">
+                <div class="card-body">
+                    <form method="POST" action="/admin/post/compnayvehicles">
+                        <h3>Add Company Vehicles </h3>
+                        <div class="form-row">
+                            <div class="col">
+                                <label for="vehicleno">Vehicle No:</label>
+                                <input au tofocus class="form-control" autocapitalize="True"
+                                    style="text-transform:uppercase;" placeholder="Vehicle No" type="text"
+                                    class="form-control" name="vehicleno" required>
+                            </div>
+                            <div class="col">
+                                <label>Vehicle Type:</label>
+                                <select class="form-control" name="vehicletype">
+                                    {% for types in vehicle_types %}
+                                    <option value="{{types.id}}">{{types.typename}}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="col">
+                                <label>Model Name:</label>
+                                <input class="form-control" type="text" placeholder="Model Name" name="modelname">
+                            </div>
+                        </div>
+                        <input type="submit" class="btn btn-block mt-1 btn-primary">
+                    </form>
+                    <table class="table table-sm">
+                        <thead>
+                            <tr>
+                                <th>Vehicle ID</th>
+                                <th> Vehicle No</th>
+                                <th>Vehicle Type</th>
+                                <th>Model Name</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for comp_v in company_vehicles %}
+                            <tr>
+                                <td>{{comp_v.id}}</ td>
+                                <td>{{comp_v.comp_vehicle_no}}</td>
+                                <td>{{comp_v.comp_vehicle_type.typename}}</td>
+                                <td>{{comp_v.model_name}}</td>
+                                <td>
+                                    <button id="vehicle_types-submit" type="button" value="Actions"
+                                        class="btn btn-sm btn-warning" data-toggle="dropdown" aria-haspopup="true"
+                                        aria-expanded="false">Actions</button>
+                                    <div class="dropdown-menu" aria-labelledby="vehicle_types-submit">
+                                        <div>
+                                            <form action="{{url_for('admin.admin_delete')}}" method="POST">
+                                                <input type="hidden" name="comp_v_id" value="{{comp_v.id}}">
+                                                <input class="dropdown-item" type="submit" value="Delete">
+
+                                            </form>
+
+                                        </div>
+                                        <div>
+                                            <form action="" method="POST">
+                                                <input type="hidden" value="{{comp_v.id}}">
+                                                <input class="dropdown-item" type="submit" value="Update">
+                                            </form>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Visitor Master Table-->
+        <div id="visitorcard" data-parent="#adminpanel" class="collapse col">
+            <div class="card">
+                <div class="card-body">
+                    <h3>Visitor Master</h3>
+                    <table id="visitormastertable" class="table table-sm">
+                        <thead>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Contact Number</th>
+                            <th>Place From</th>
+                            <th>Actions</th>
+                        </thead>
+                        <tbody>
+                            {% for v in visitors %}
+                            <tr id="datarow{{v.id}}">
+                                <td id="visitor_id{{v.id}}">{{v.id}}</td>
+                                <td id="visitor_name{{v.id}}">{{v.name}}</td>
+                                <td id="visitor_contact{{v.id}}">{{v.contact}}</td>
+                                <td id="visitor_place{{v.id}}">{{v.place_from}}</td>
+                                <td>
+                                    <button data-id="{{v.id}}" class="btn btn-primary btn-warning" data-toggle="modal"
+                                        data-target="#editvisitor">Edit</button>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+
+                    <div class="modal fade" id="editvisitor" tabindex="-1" role="dialog"
+                        aria-labelledby="personwisemodal" aria-hidden="true">
+                        <div class="modal-dialog" role="form">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title">Edit Vistor Master </h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                            aria-hidden="true">&times;</span></button>
+                                </div>
+                                <div class="modal-body">
+
+                                    <input id="vid" type="hidden" name="vid">
+
+                                    <label class=" mb-2 h6 col-form-label" for="#name">Name</label>
+                                    <input id="name" type="text" class="form-control" name="name" autofocus>
+
+                                    <label class=" mb-2 h6 col-form-label" for="#contact">Contact</label>
+                                    <input id="contact" type="number" class="form-control" name="contact">
+
+                                    <label class=" mb-2 h6 col-form-label" for="#contact">Place From</label>
+                                    <input id="place" type="text" class="form-control" name="place">
+
+                                    <input id="veditbtn" type="submit" class="mt-2 btn btn-primary btn-block btn-sm"
+                                        value="Submit">
+
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</div>
 {% endblock %}
 
 

@@ -9,3 +9,11 @@ body{
     height: 30mm;
     background-color: white;
 }
+
+.mstickerbod{
+    margin-left: auto;
+    margin-right: auto;
+    width: 50mm;
+    height: 30mm;
+    background-color: white;
+}

@@ -56,7 +56,17 @@ def design_print():
     if request.method == 'POST':
         if request.form:    
             d_id = request.form.get('d_id')
-            return redirect(url_for('design.design_to_paper', d_id=d_id))
+            sizemark_s = request.form.get('ssize')
+            sizemark_m = request.form.get('msize')
+            sizemark_l = request.form.get('lsize')
+            if sizemark_s : 
+                return redirect(url_for('design.design_to_paper', d_id=d_id, sizemark_s=sizemark_s))
+            elif sizemark_m :
+                return redirect(url_for('design.design_to_paper', d_id=d_id))
+            elif sizemark_l:
+                return redirect(url_for('design.design_to_paper', d_id=d_id))
+            elif sizemark_s and sizemark_l:
+                return redirect(url_for('design.design_to_paper', d_id=d_id))
     return render_template('Design/print.html', d_many=d1)
 
 

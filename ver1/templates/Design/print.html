@@ -30,13 +30,73 @@
                     {% else %}
                     <td>{{d.date_changed.strftime('%d-%m-%y')}}</td>
                     {% endif %}
-                    <td><form action="{{url_for('design.design_print')}}" method="POST">
+                    <!-- <td><form action="{{url_for('design.design_print')}}" method="POST">
                         <input type="hidden" name="d_id" value="{{d.design_code}}">
                         <input class="btn btn-dark" type="submit">                        
-                    </form></td>
+                    </form></td> -->
+                    <td><button type="button" data-id="{{d.design_code}}" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#printmodal">
+                        Launch
+                      </button></td>
                 </tr>
             {% endfor %}
             </tbody>
         </table>
+
+        <!-- Button trigger modal -->
+        
+        <!-- Modal -->
+        <div class="modal fade" id="printmodal" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                
+                    <div class="modal-header">
+                        <h5 class="modal-title">Print Settings</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                    </div>
+                    <div class="modal-body">
+                    <form action="{{url_for('design.design_print')}}" method="POST">
+                    <div class="form-check">
+                      <label class="form-check-label">
+                        <input type="checkbox" class="form-check-input" name="ssize" id="" value="1" checked>
+                       S
+                      </label>
+                    </div>
+                    <div class="form-check">
+                        <label class="form-check-label">
+                          <input type="checkbox" class="form-check-input" name="msize" id="" value="2">
+                         M
+                        </label>
+                      </div>
+                      <div class="form-check">
+                        <label class="form-check-label">
+                          <input type="checkbox" class="form-check-input" name="lsize" id="" value="3" >
+                          L
+                        </label>
+                      </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <input id="printformid" type="hidden" name="d_id" value="">
+                                            
+                       
+                     </div>
+                     <input class="btn btn-primary" type="submit" value="Print">
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
+{% endblock %}
+
+<!-- Javascripts -->
+{% block scripts %}
+<script>
+    $('#printmodal').on('show.bs.modal', function(e){
+        var id = $(e.relatedTarget).data('id')
+        $('#printformid').val(id)
+    })
+</script>
+
 {% endblock %}
